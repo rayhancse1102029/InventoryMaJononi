@@ -1,8 +1,41 @@
-﻿@{
+﻿
+@model RegisterViewModel
+
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+<section>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h5 style="font-weight: bold; color: black">Users List</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>EmpCode</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.allUsers)
+                        {
+                            <tr>
+                                <td>@item.Email</td>
+                                <td>@item.EmpCode</td>
+                                <td>
+                                    <button class="btn btn-success">View</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

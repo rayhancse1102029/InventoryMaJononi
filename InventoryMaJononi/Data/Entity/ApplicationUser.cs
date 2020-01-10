@@ -9,6 +9,7 @@ namespace InventoryMaJononi.Data.Entity
 {
     public class ApplicationUser : IdentityUser
     {
+        
         public int? userTypeId { get; set; }
         public UserType userType { get; set; }
 
