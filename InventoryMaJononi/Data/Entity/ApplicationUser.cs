@@ -9,23 +9,42 @@ namespace InventoryMaJononi.Data.Entity
 {
     public class ApplicationUser : IdentityUser
     {
+
+        //public int? userTypeId { get; set; }
+        //public UserType userType { get; set; }
+
+        //[MaxLength(120)]
+        //public string org { get; set; }
+        //public int userId { get; set; }
+
+
+        [Required]
+        [MaxLength(20)]
+        public string firstName { get; set; } 
         
-        public int? userTypeId { get; set; }
-        public UserType userType { get; set; }
+        [Required]
+        [MaxLength(20)]
+        public string lastName { get; set; }
 
-        public string EmpCode { get; set; }
+        public string fullName { get; set; }
 
-        public int userId { get; set; }
+        [Required]
+        public byte[] img { get; set; }
+        
+        public string employeeCode { get; set; }
+
+        public int? isVerified { get; set; }
 
         public int? isActive { get; set; }
-        [MaxLength(120)]
-        public string org { get; set; }
+
 
         public DateTime? createdAt { get; set; }
+
         [MaxLength(120)]
         public string createdBy { get; set; }
 
         public DateTime? updatedAt { get; set; }
+
         [MaxLength(120)]
         public string updatedBy { get; set; }
     }

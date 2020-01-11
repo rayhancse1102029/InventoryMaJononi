@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using InventoryMaJononi.Controllers;
 using InventoryMaJononi.Data.Entity;
 using InventoryMaJononi.Models.AccountViewModels;
+using InventoryMaJononi.Service.Interface;
 //using InventoryMaJononi.Models.AccountViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -25,15 +26,18 @@ namespace InventoryMaJononi.Areas.Auth.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         //private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly IEmployeeCodeService _iEmployeeCodeService; 
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            IEmployeeCodeService iEmployeeCodeService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _iEmployeeCodeService = iEmployeeCodeService;
         }
 
         [TempData]
@@ -56,7 +60,21 @@ namespace InventoryMaJononi.Areas.Auth.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmpCode = model.EmpCode };
+               
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    firstName = model.firstName,
+                    lastName = model.lastName,
+                    fullName = model.firstName + " " + model.lastName,
+                    PhoneNumber = model.phone,
+                    employeeCode = await _iEmployeeCodeService.GetEmpCode(),
+                    isVerified = 1,
+                    createdBy = User.Identity.Name,
+                    createdAt = DateTime.Now
+                };
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

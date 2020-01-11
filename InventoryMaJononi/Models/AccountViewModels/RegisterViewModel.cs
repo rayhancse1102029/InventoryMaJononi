@@ -11,11 +11,25 @@ namespace InventoryMaJononi.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
-        //[Required]
-        //[StringLength(30, MinimumLength = 3, ErrorMessage = "maximum 30 char and minimum 3 char")]
-        //[DisplayName("Username")]
-        //public string RegClientName { get; set; }
 
+        [Required]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "maximum 20 char and minimum 3 char")]
+        [DisplayName("First Name")]
+        public string firstName { get; set; }
+
+        [Required]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "maximum 20 char and minimum 3 char")]
+        [DisplayName("Last Name")]
+        public string lastName { get; set; }
+
+
+        [Required]
+        [DisplayName("Image")]
+        public byte[] img { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public string phone { get; set; }
 
         [Required]
         [EmailAddress]
@@ -32,12 +46,6 @@ namespace InventoryMaJononi.Models.AccountViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
-
-        //[DisplayName("Registration Date")]
-        //public DateTime RegDate { get; set; }
-
-        public string EmpCode { get; set; }
 
 
         public IEnumerable<ApplicationUser> allUsers { get; set; } 
