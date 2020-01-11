@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using InventoryMaJononi.Controllers;
 using InventoryMaJononi.Data.Entity;
+using InventoryMaJononi.Helpers;
 using InventoryMaJononi.Models.AccountViewModels;
 using InventoryMaJononi.Service.Interface;
 //using InventoryMaJononi.Models.AccountViewModels;
@@ -60,7 +61,19 @@ namespace InventoryMaJononi.Areas.Auth.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-               
+                string fileName;
+                string empFileName = String.Empty;
+                string message = FileSave.SaveImage(out fileName, model.img);
+
+                if (message == "success")
+                {
+                    empFileName = fileName;
+                }
+                else
+                {
+                    return View(returnUrl);
+                }
+
                 var user = new ApplicationUser
                 {
                     UserName = model.Email,
@@ -70,6 +83,7 @@ namespace InventoryMaJononi.Areas.Auth.Controllers
                     fullName = model.firstName + " " + model.lastName,
                     PhoneNumber = model.phone,
                     employeeCode = await _iEmployeeCodeService.GetEmpCode(),
+                    imgUrl = empFileName,
                     isVerified = 1,
                     createdBy = User.Identity.Name,
                     createdAt = DateTime.Now

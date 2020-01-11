@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using InventoryMaJononi.Data;
 using InventoryMaJononi.Data.Entity;
+using InventoryMaJononi.Service;
+using InventoryMaJononi.Service.Interface;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -77,6 +79,13 @@ namespace InventoryMaJononi
                 options.IdleTimeout = TimeSpan.FromHours(24);
                 options.Cookie.IsEssential = true;
             });
+
+            #region Service
+
+            services.AddScoped<IEmployeeCodeService, EmployeeCodeService>();
+
+            #endregion
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

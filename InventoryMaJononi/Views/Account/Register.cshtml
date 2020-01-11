@@ -3,56 +3,112 @@
 @model RegisterViewModel
 
 @{
-    ViewData["Title"] = "Register";
+    Layout = null;
 }
 
+<style>
+    #brand-icon-id i {
+        height: 200px;
+        width: 100px
+    }
+</style>
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" enctype="multipart/form-data">
-            <h4>Create a new account.</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="firstName"></label>
-                <input asp-for="firstName" class="form-control" />
-                <span asp-validation-for="firstName" class="text-danger"></span>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/FontAwsome/css/all.min.css" rel="stylesheet" />
+    <link href="~/Dashboard/css/sb-admin-2.min.css" rel="stylesheet" />
+
+</head>
+
+<body style="background-color:#002739">
+    <div class="container">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-12 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body">
+                        <!-- Nested Row within Card Body -->
+
+                        <div class="text-center">
+                            @*<span id="brand-icon-id"><i class="fas fa-truck-moving" style="color: dodgerblue;" height="200px" width="100px"></i></span>*@
+                            <h5 style="color: black; margin-bottom: 40px; margin-top: 50px; font-weight: 700;">WELCOME TO MA JONONI COLOR HOUSE !!!</h5>
+                            @*<h5 style="color:black;margin-bottom: 12px; font-weight: 700;">Accounting</h5>*@
+                        </div>
+
+                        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" enctype="multipart/form-data">
+                            <h5 style="font-weight: bold;">Create a new account.</h5>
+                            <hr />
+                            <div asp-validation-summary="All" class="text-danger"></div>
+
+                            <div class="form-group">
+                                <label asp-for="firstName"></label>
+                                <input asp-for="firstName" class="form-control" />
+                                <span asp-validation-for="firstName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="lastName"></label>
+                                <input asp-for="lastName" class="form-control" />
+                                <span asp-validation-for="lastName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="img"></label>
+                                <input type="file" asp-for="img" name="img" class="form-control" />
+                                <span asp-validation-for="img" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="phone"></label>
+                                <input asp-for="phone" class="form-control" />
+                                <span asp-validation-for="phone" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ConfirmPassword"></label>
+                                <input asp-for="ConfirmPassword" class="form-control" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block">Register</button>
+                        </form>
+
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="lastName"></label>
-                <input asp-for="lastName" class="form-control" />
-                <span asp-validation-for="lastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="img"></label>
-                <input asp-for="img" name="img" class="form-control" />
-                <span asp-validation-for="img" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="phone"></label>
-                <input asp-for="phone" class="form-control" />
-                <span asp-validation-for="phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-default">Register</button>
-        </form>
+        </div>
     </div>
-</div>
 
-@*@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}*@
+    <script type="text/javascript">
+
+        function handleClick(cb) {
+            if (cb.checked == true) {
+                $('#customCheck').val(true);
+            } else {
+                $('#customCheck').val(false);
+            }
+        }
+
+
+    </script>
+
+
+    <script src="~/Dashboard/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="~/Dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Dashboard/js/sb-admin-2.min.js"></script>
+
+</body>
+</html>
+

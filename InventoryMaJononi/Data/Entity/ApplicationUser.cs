@@ -29,7 +29,7 @@ namespace InventoryMaJononi.Data.Entity
         public string fullName { get; set; }
 
         [Required]
-        public byte[] img { get; set; }
+        public string imgUrl { get; set; }
         
         public string employeeCode { get; set; }
 

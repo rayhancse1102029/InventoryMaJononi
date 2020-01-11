@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using InventoryMaJononi.Data.Entity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 
 namespace InventoryMaJononi.Models.AccountViewModels
@@ -25,7 +28,7 @@ namespace InventoryMaJononi.Models.AccountViewModels
 
         [Required]
         [DisplayName("Image")]
-        public byte[] img { get; set; }
+        public IFormFile img { get; set; }
 
         [Required]
         [StringLength(20)]
