@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -83,7 +84,18 @@ namespace InventoryMaJononi
             #region Service
 
             services.AddScoped<IEmployeeCodeService, EmployeeCodeService>();
+            services.AddScoped<IUserService, UserService>();
 
+            #endregion
+
+            #region Areas Config
+            services.Configure<RazorViewEngineOptions>(options =>
+            {
+                options.AreaViewLocationFormats.Clear();
+                options.AreaViewLocationFormats.Add("/areas/{2}/Views/{1}/{0}.cshtml");
+                options.AreaViewLocationFormats.Add("/areas/{2}/Views/Shared/{0}.cshtml");
+                options.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
+            });
             #endregion
 
         }

@@ -32,18 +32,10 @@ namespace InventoryMaJononi.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var model = new RegisterViewModel
-            {
-                allUsers = await _context.Users.ToListAsync()
-            };
 
-            // OR
-
-           // List<ApplicationUser> users = await _userManager.Users.ToListAsync();
-
-            return View(model);
+            return View();
         }
   
         public IActionResult Privacy()

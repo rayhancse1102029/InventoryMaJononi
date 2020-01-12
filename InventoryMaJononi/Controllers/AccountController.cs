@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using InventoryMaJononi.Controllers;
+using InventoryMaJononi.Data;
 using InventoryMaJononi.Data.Entity;
 using InventoryMaJononi.Helpers;
 using InventoryMaJononi.Models.AccountViewModels;
@@ -14,9 +15,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace InventoryMaJononi.Areas.Auth.Controllers
+namespace InventoryMaJononi.Controllers
 {
 
     [Authorize]
@@ -27,18 +29,22 @@ namespace InventoryMaJononi.Areas.Auth.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         //private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
-        private readonly IEmployeeCodeService _iEmployeeCodeService; 
+        private readonly IEmployeeCodeService _iEmployeeCodeService;
+        private readonly InventoryMaJononiDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<AccountController> logger,
-            IEmployeeCodeService iEmployeeCodeService)
+            IEmployeeCodeService iEmployeeCodeService,
+            InventoryMaJononiDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _iEmployeeCodeService = iEmployeeCodeService;
+            _context = context;
+
         }
 
         [TempData]
@@ -129,28 +135,40 @@ namespace InventoryMaJononi.Areas.Auth.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
-                // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                ApplicationUser user = await _userManager.FindByNameAsync(model.Email);
+
+                if (user.isVerified == 0)
                 {
-                    _logger.LogInformation("User logged in.");
-                    return RedirectToLocal(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToAction(nameof(Lockout));
+                    // This doesn't count login failures towards account lockout
+                    // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                    var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                    if (result.Succeeded)
+                    {
+                        _logger.LogInformation("User logged in.");
+                        return RedirectToLocal(returnUrl);
+                    }
+                    if (result.RequiresTwoFactor)
+                    {
+                        return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                    }
+                    if (result.IsLockedOut)
+                    {
+                        _logger.LogWarning("User account locked out.");
+                        return RedirectToAction(nameof(Lockout));
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                        return View(model);
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Unverified Account");
                     return View(model);
                 }
+
+               
             }
 
             // If we got this far, something failed, redisplay form

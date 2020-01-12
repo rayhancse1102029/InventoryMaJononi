@@ -1,0 +1,73 @@
+﻿
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h5 style="font-weight: bold; color: black">Users List</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered" id="user-list-table-id">
+                    <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>EmpCode</th>
+                        <th>Image</th>
+                        <th>IsVerified</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.allUsers)
+                    {
+                        <tr>
+                            <td>@item.fullName</td>
+                            <td>@item.Email</td>
+                            <td>@item.employeeCode</td>
+                            <td>
+                                <img src="~/@item.imgUrl" height="50" width="50" />
+                            </td>
+                            <td>
+                                @if (item.isVerified == 0)
+                                {
+                                    <input type="checkbox" checked="checked" readonly="readonly" style="height: 20px; width: 20px;"/>
+                                }
+                                else
+                                {
+                                    <input type="checkbox" readonly="readonly" style="height: 20px; width: 20px;"/>
+                                }
+                            </td>
+                            <td>
+                                <button class="btn btn-success"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts
+{
+    <script>
+
+        $(document).ready(function() {
+
+            $("#user-list-table-id").DataTable();
+
+        });
+
+    </script>
+}
