@@ -27,67 +27,77 @@
 </head>
 
 <body style="background-color:#002739">
+   
     <div class="container">
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
-            <div class="col-xl-6 col-lg-12 col-md-9">
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body">
-                        <!-- Nested Row within Card Body -->
 
-                        <div class="text-center">
-                            @*<span id="brand-icon-id"><i class="fas fa-truck-moving" style="color: dodgerblue;" height="200px" width="100px"></i></span>*@
-                            <h5 style="color: black; margin-bottom: 40px; margin-top: 50px; font-weight: 700;">WELCOME TO MA JONONI COLOR HOUSE !!!</h5>
-                            @*<h5 style="color:black;margin-bottom: 12px; font-weight: 700;">Accounting</h5>*@
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            </div>
+                            <form class="user" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" enctype="multipart/form-data">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" name="firstName" class="form-control form-control-user" id="firstName" placeholder="First Name">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="lastName" class="form-control form-control-user" id="lastName" placeholder="Last Name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="file" name="img" class="form-control form-control-user" id="img" placeholder="Email Address">
+                                </div> 
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" name="phone" class="form-control form-control-user" id="phone" placeholder="First Name">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <select name="brabchName" class="form-control form-control-user" id="brabchName" >
+                                            <option value="0">  Select Baranch </option>
+                                            <option value="0">  Master Baranch </option>
+                                            <option value="0">  Visho Road Baranch </option>
+                                            <option value="0">  Shashongasa Baranch </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="Email" class="form-control form-control-user" id="Email" placeholder="Email Address">
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" name="Password" class="form-control form-control-user" id="Password" placeholder="Password">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" name="ConfirmPassword" class="form-control form-control-user" id="ConfirmPassword" placeholder="Repeat Password">
+                                    </div>
+                                </div>
+                                <input type="submit" class="btn btn-primary btn-user btn-block" value="Register Account" />
+
+                                <hr>
+                                @*<a href="index.html" class="btn btn-google btn-user btn-block">
+                                    <i class="fab fa-google fa-fw"></i> Register with Google
+                                </a>
+                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                                </a>*@
+                            </form>
+                            <div class="text-center">
+                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="login.html">Already have an account? Login!</a>
+                            </div>
                         </div>
-
-                        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" enctype="multipart/form-data">
-                            <h5 style="font-weight: bold;">Create a new account.</h5>
-                            <hr />
-                            <div asp-validation-summary="All" class="text-danger"></div>
-
-                            <div class="form-group">
-                                <label asp-for="firstName"></label>
-                                <input asp-for="firstName" class="form-control" />
-                                <span asp-validation-for="firstName" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="lastName"></label>
-                                <input asp-for="lastName" class="form-control" />
-                                <span asp-validation-for="lastName" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="img"></label>
-                                <input type="file" asp-for="img" name="img" class="form-control" />
-                                <span asp-validation-for="img" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="phone"></label>
-                                <input asp-for="phone" class="form-control" />
-                                <span asp-validation-for="phone" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Email"></label>
-                                <input asp-for="Email" class="form-control" />
-                                <span asp-validation-for="Email" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Password"></label>
-                                <input asp-for="Password" class="form-control" />
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="ConfirmPassword"></label>
-                                <input asp-for="ConfirmPassword" class="form-control" />
-                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                            </div>
-                            <button type="submit" class="btn btn-success btn-block">Register</button>
-                        </form>
-
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <script type="text/javascript">

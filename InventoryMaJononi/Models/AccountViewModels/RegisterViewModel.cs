@@ -35,6 +35,9 @@ namespace InventoryMaJononi.Models.AccountViewModels
         public string phone { get; set; }
 
         [Required]
+        public string branchName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

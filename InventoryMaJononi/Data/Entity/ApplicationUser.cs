@@ -33,6 +33,8 @@ namespace InventoryMaJononi.Data.Entity
         
         public string employeeCode { get; set; }
 
+        public string branchName { get; set; }
+
         public int? isVerified { get; set; }
 
         public int? isActive { get; set; }
