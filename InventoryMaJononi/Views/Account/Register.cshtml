@@ -57,11 +57,12 @@
                                         <input type="text" name="phone" class="form-control form-control-user" id="phone" placeholder="First Name">
                                     </div>
                                     <div class="col-sm-6">
-                                        <select name="brabchName" class="form-control form-control-user" id="brabchName" >
+                                        <select name="brabchName" class="form-control form-control-user" id="brabchName">
                                             <option value="0">  Select Baranch </option>
-                                            <option value="0">  Master Baranch </option>
-                                            <option value="0">  Visho Road Baranch </option>
-                                            <option value="0">  Shashongasa Baranch </option>
+                                            @foreach (var item in Model.branches)
+                                            {
+                                                <option value="@item.Id"> @item.branchName </option>
+                                            }
                                         </select>
                                     </div>
                                 </div>

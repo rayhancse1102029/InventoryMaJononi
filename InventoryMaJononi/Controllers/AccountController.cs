@@ -9,6 +9,7 @@ using InventoryMaJononi.Data.Entity;
 using InventoryMaJononi.Helpers;
 using InventoryMaJononi.Models.AccountViewModels;
 using InventoryMaJononi.Service.Interface;
+using InventoryMaJononi.ServiceMasterData.Interface;
 //using InventoryMaJononi.Models.AccountViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -31,19 +32,22 @@ namespace InventoryMaJononi.Controllers
         private readonly ILogger _logger;
         private readonly IEmployeeCodeService _iEmployeeCodeService;
         private readonly InventoryMaJononiDbContext _context;
+        private readonly IBranchService iBranchService;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<AccountController> logger,
             IEmployeeCodeService iEmployeeCodeService,
-            InventoryMaJononiDbContext context)
+            InventoryMaJononiDbContext context,
+            IBranchService iBranchService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _iEmployeeCodeService = iEmployeeCodeService;
             _context = context;
+            this.iBranchService = iBranchService;
 
         }
 
@@ -53,10 +57,16 @@ namespace InventoryMaJononi.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register(string returnUrl = null)
+        public async Task<IActionResult> Register(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
-            return View();
+
+            RegisterViewModel model = new RegisterViewModel
+            {
+                branches = await iBranchService.GetAllBranch()
+            };
+
+            return View(model);
         }
 
         [HttpPost]
