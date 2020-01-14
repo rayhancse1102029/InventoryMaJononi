@@ -6,6 +6,8 @@ using InventoryMaJononi.Data;
 using InventoryMaJononi.Data.Entity;
 using InventoryMaJononi.Service;
 using InventoryMaJononi.Service.Interface;
+using InventoryMaJononi.ServiceMasterData;
+using InventoryMaJononi.ServiceMasterData.Interface;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -85,6 +87,12 @@ namespace InventoryMaJononi
 
             services.AddScoped<IEmployeeCodeService, EmployeeCodeService>();
             services.AddScoped<IUserService, UserService>();
+
+            #endregion
+
+            #region MasterDat
+
+            services.AddScoped<IBranchService, BranchService>();
 
             #endregion
 

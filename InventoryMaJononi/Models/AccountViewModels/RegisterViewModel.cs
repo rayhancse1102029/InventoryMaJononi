@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using InventoryMaJononi.Data.Entity;
+using InventoryMaJononi.Data.MasterData;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 
@@ -35,7 +36,7 @@ namespace InventoryMaJononi.Models.AccountViewModels
         public string phone { get; set; }
 
         [Required]
-        public string branchName { get; set; }
+        public int branchId { get; set; }
 
         [Required]
         [EmailAddress]
@@ -55,6 +56,7 @@ namespace InventoryMaJononi.Models.AccountViewModels
 
 
         public IEnumerable<ApplicationUser> allUsers { get; set; } 
+        public IEnumerable<Branch> branches { get; set; } 
 
     }
 }

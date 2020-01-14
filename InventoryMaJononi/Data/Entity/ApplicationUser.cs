@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using InventoryMaJononi.Data.MasterData;
 using Microsoft.AspNetCore.Identity;
 
 namespace InventoryMaJononi.Data.Entity
@@ -33,7 +34,8 @@ namespace InventoryMaJononi.Data.Entity
         
         public string employeeCode { get; set; }
 
-        public string branchName { get; set; }
+        public int? branchId { get; set; }
+        public Branch Branch { get; set; }
 
         public int? isVerified { get; set; }
 
