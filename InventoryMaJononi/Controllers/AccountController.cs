@@ -98,6 +98,7 @@ namespace InventoryMaJononi.Controllers
                     lastName = model.lastName,
                     fullName = model.firstName + " " + model.lastName,
                     PhoneNumber = model.phone,
+                    branchId = model.branchId,
                     employeeCode = await _iEmployeeCodeService.GetEmpCode(),
                     imgUrl = empFileName,
                     isVerified = 1,

@@ -21,9 +21,15 @@ namespace InventoryMaJononi.Areas.MasterData.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+
+            BranchViewModel model = new BranchViewModel
+            {
+                branches = await iBranchService.GetAllBranch()
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -32,24 +38,19 @@ namespace InventoryMaJononi.Areas.MasterData.Controllers
 
             var result = "error";
 
+            if (!ModelState.IsValid)
+            {
+                return Json(result);
+            }
+
             Branch branch = new Branch
             {
                 Id = model.Id,
                 branchName = model.branchName,
+                createdBy = User.Identity.Name,
+                createdAt = DateTime.Now
 
             };
-
-            if (model.Id != 0)
-            {
-                branch.updatedBy = User.Identity.Name;
-                branch.updatedAt = DateTime.Now;
-
-            }
-            else
-            {
-                branch.createdBy = User.Identity.Name;
-                branch.createdAt = DateTime.Now;
-            }
 
             bool data = await iBranchService.SaveBranch(branch);
 
