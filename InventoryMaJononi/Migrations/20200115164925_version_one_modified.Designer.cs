@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryMaJononi.Migrations
 {
     [DbContext(typeof(InventoryMaJononiDbContext))]
-    [Migration("20200111163317_auth_done_version_one")]
-    partial class auth_done_version_one
+    [Migration("20200115164925_version_one_modified")]
+    partial class version_one_modified
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,6 +59,8 @@ namespace InventoryMaJononi.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
+                    b.Property<int?>("branchId");
+
                     b.Property<DateTime?>("createdAt");
 
                     b.Property<string>("createdBy")
@@ -98,6 +100,8 @@ namespace InventoryMaJononi.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("branchId");
+
                     b.ToTable("AspNetUsers");
                 });
 
@@ -124,6 +128,31 @@ namespace InventoryMaJononi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserTypes");
+                });
+
+            modelBuilder.Entity("InventoryMaJononi.Data.MasterData.Branch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("branchName");
+
+                    b.Property<DateTime?>("createdAt");
+
+                    b.Property<string>("createdBy")
+                        .HasMaxLength(250);
+
+                    b.Property<int?>("isDelete");
+
+                    b.Property<DateTime?>("updatedAt");
+
+                    b.Property<string>("updatedBy")
+                        .HasMaxLength(250);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Branches");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -234,6 +263,13 @@ namespace InventoryMaJononi.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("InventoryMaJononi.Data.Entity.ApplicationUser", b =>
+                {
+                    b.HasOne("InventoryMaJononi.Data.MasterData.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("branchId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
