@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryMaJononi.Areas.MasterData.Controllers
 {
-    [Area("Branch")]
+    [Area("MasterData")]
     public class BranchController : Controller
     {
 
@@ -58,7 +58,7 @@ namespace InventoryMaJononi.Areas.MasterData.Controllers
                 result = "success";
             }
 
-            return View();
+            return Json(result);
         }
     }
 }
