@@ -19,8 +19,18 @@ namespace InventoryMaJononi.Data
             this._httpContextAccessor = _httpContextAccessor;
         }
 
+        #region Master Data
+
         public DbSet<UserType> UserTypes { get; set; }
         public DbSet<Branch> Branches { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<ProductBrand> ProductBrands { get; set; }
+        public DbSet<ProductGroup> ProductGroups { get; set; }
+        public DbSet<WeightCategory> WeightCategories { get; set; }
+
+        #endregion
+
+
 
         #region Settings Configs
         public override int SaveChanges()

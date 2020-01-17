@@ -7,6 +7,28 @@
 }
 
 
+<style>
+
+    .name-cls {
+
+        text-align: center;
+        font-weight: bold;
+        /*color: black;*/
+    }
+
+    #profile-title-id {
+        font-weight: bold;
+        color: gray;
+    }
+    .text-align-right-cls {
+
+        text-align: right;
+    }
+
+
+
+</style>
+
 <section>
     <div class="container-fluid">
         <div class="card">
@@ -46,8 +68,8 @@
                                 }
                             </td>
                             <td>
-                                <button class="btn btn-success"><i class="fas fa-eye"></i></button>
-                                <button class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
+                                <button class="btn btn-success" onclick="View('@item.Email')"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-primary" onclick="Edit('@item.Email')"><i class="fas fa-pencil-alt"></i></button>
                             </td>
                         </tr>
                     }
@@ -59,6 +81,12 @@
 </section>
 
 
+<div class="modal fade employee-info-modal-cls" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+
+    </div>
+</div>
+
 @section Scripts
 {
     <script>
@@ -68,6 +96,66 @@
             $("#user-list-table-id").DataTable();
 
         });
+
+
+        function Edit(email) {
+
+            //var response = Common.Ajax('GET', '/api/UserControl/GetUserInfoByUserId/' + 'username', [], 'json');
+            alert(email);
+            $.ajax({
+                url: "/User/UserControl/GetUserInfoByUserEmail",
+                type: "Get",
+                data: { email: email},
+                success: function (response) {
+
+                    var html =
+                        '<div class="card">' +
+                            ' <div class="card-header">' +
+                                 ' <img src="/' + response.applicationUser.imgUrl + '" class="rounded-circle" height="100" width="100" />' +
+                            ' </div>' +
+                        '<div class="card-body">' +
+                                '<div class="name-cls">' +
+                                '<h5>' + response.applicationUser.fullName + '</h5>' +
+                                '<button type="button" class="close" data-dismiss="modal" aria-label="Close">' +
+                                '<span aria-hidden="true">&times;</span>' +
+                                '</button>' +
+                                '</div>' +
+                                '<hr />' +
+                                '<h6 id="profile-title-id">Profile</h6>' +
+                                '<div class="profile-content-cls">' +
+                                        '<div class="row">' +
+                                        ' <div class="col-6"> User ID: </div>' +
+                                        ' <div class="col-6 text-align-right-cls"> 485843 </div>' +
+                                        ' </div>' +
+                                        '<div class="row">' +
+                                        '<div class="col-6"> User ID: </div>' +
+                                        ' <div class="col-6 text-align-right-cls"> 485843 </div>' +
+                                        ' </div>' +
+                                        '<div class="row">' +
+                                        '<div class="col-6"> User ID: </div>' +
+                                        '<div class="col-6 text-align-right-cls"> 485843 </div>' +
+                                        '</div>' +
+                                        '<div class="row">' +
+                                        '<div class="col-6"> User ID: </div>' +
+                                        '<div class="col-6 text-align-right-cls"> 485843 </div>' +
+                                        '</div>' +
+                                    '</div>' +
+                            '</div>' +
+                            '<div class="card-footer">' + 
+                                '<button type="button" class="btn btn-primary">Verify</button>' + 
+                                '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>' +
+                            '</div>'+
+                        '</div> ';
+
+
+                    $(".modal-dialog").append(html);
+
+                }
+            });
+
+            $(".employee-info-modal-cls").modal("show");
+
+        }
 
     </script>
 }

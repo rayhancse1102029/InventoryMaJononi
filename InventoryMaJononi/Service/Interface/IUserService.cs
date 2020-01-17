@@ -9,5 +9,6 @@ namespace InventoryMaJononi.Service.Interface
     public interface IUserService
     {
         Task<IEnumerable<ApplicationUser>> GetAllUser();
+        Task<ApplicationUser> GetUserInfoByUserEmail(string email);
     }
 }

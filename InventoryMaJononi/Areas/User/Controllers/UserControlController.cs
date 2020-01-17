@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InventoryMaJononi.Areas.User.Models;
 using InventoryMaJononi.Data;
 using InventoryMaJononi.Models.AccountViewModels;
 using InventoryMaJononi.Service.Interface;
@@ -39,5 +40,28 @@ namespace InventoryMaJononi.Areas.User.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUserInfoByUserEmail(string email)
+        {
+
+            ApplicationUserViewModel model = new ApplicationUserViewModel
+            {
+                applicationUser = await _iUserService.GetUserInfoByUserEmail(email)
+            };
+
+            var data = model;
+
+            return Json(model);
+        }
+
+
+        #region API
+
+        //[Route("api/UserControl/GetUserInfoByUserId/{username}")]
+
+
+        #endregion
+
     }
 }
